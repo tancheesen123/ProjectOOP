@@ -79,7 +79,7 @@ public class InventorySystem {
             }
 
         }
-
+scan.close();
     }
 
     public static void header(){
