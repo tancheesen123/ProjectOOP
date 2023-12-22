@@ -1,0 +1,6 @@
+1,1,Customer
+321,123,asdqw
+123,321,Admin
+2,2,Supplier
+6,6,Supplier
+aasd,adas,position
