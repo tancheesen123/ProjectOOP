@@ -53,14 +53,8 @@ public class Book {
         this.quantityInStock = quantityInStock;
     }
 
-    public String displayBook() {
-        return "Book{" +
-                "bookID='" + bookID + '\'' +
-                ", title='" + title + '\'' +
-                ", mainAuthor='" + mainAuthor + '\'' +
-                ", genre=" + genre +
-                ", quantityInStock=" + quantityInStock +
-                '}';
+    public void displayBook() {
+        System.out.println("Book ID: " + bookID +"Title: " + title+ "Main Author: " + mainAuthor+ "Genre: " + genre+ "Quantity in Stock: " + quantityInStock+"\n");
     }
 
 }

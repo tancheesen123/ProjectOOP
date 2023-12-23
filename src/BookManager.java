@@ -12,23 +12,23 @@ public class BookManager {
     public Vector<Book> getBooksfromFile() throws FileNotFoundException {
         Vector<Book> books = new Vector<Book>();
         Scanner sc = new Scanner(new File("booksDatabase.txt"));
-        System.out.print("╔═══════════════════════════════════════════════════════════════════╗\n");
-        System.out.print("║Book Id ║Title  ║  Main Author  ║   Genre  ║    quantity In Stock  ║\n");
-        System.out.print("║════════║═══════║═══════════════║══════════║═══════════════════════║\n");
+        System.out.print("╔════════╦══════════════════════════════╦══════════════════════════════╦══════════════════════╦════════════════════════╗\n");
+        System.out.print("║Book Id ║            Title             ║         Main Author          ║         Genre        ║    quantity In Stock   ║\n");
+        System.out.print("╠════════╬══════════════════════════════╬══════════════════════════════╬══════════════════════╬════════════════════════╣\n");
         while(sc.hasNext()){
             String bookId = sc.next();
             String title = sc.next();
             String mainAuthor = sc.next();
             String genre = sc.next();
             int quantityInStock = sc.nextInt();
-            System.out.printf("║%-5s║%-20s║%-20s║%-15s║%-5d║%n", bookId, title, mainAuthor, genre, quantityInStock);
+            System.out.printf("║%-8s║%-30s║%-30s║%-22s║%-24d║%n", bookId, title, mainAuthor, genre, quantityInStock);
 
             // if(roleID == userRoleID){
             Book book = new Book(bookId, title, mainAuthor, genre, quantityInStock);
             books.add(book);
             // }
         }
-        System.out.print("════════════════════════════════════════════════════════════════════\n");
+        System.out.print("╚════════╩══════════════════════════════╩══════════════════════════════╩══════════════════════╩════════════════════════╝\n");
         return books;
         
     }
@@ -45,48 +45,49 @@ public class BookManager {
     //the data inside booksDatabase also will be deleted base on the bookId
     public void removeBookFromFile(String bookId) throws IOException{
         Vector<Book> books = new Vector<Book>();
+        int i = 0;
         System.out.println("═════════════Before Remove═════════════");
         books = getBooksfromFile();
         PrintWriter outputFile = new PrintWriter(new FileWriter("booksDatabase.txt"));
         for(Book book:books){
             if(book.getBookID().equals(bookId)){
-                continue;
+            continue;
             }
             outputFile.write(book.getBookID()+ " "+book.getTitle()+ " "+book.getMainAuthor()+ " "+book.getGenre()+ " "+book.getQuantityInStock()+"\n");
         }
         outputFile.close();
         System.out.println("═════════════After Remove═════════════");
         books = getBooksfromFile();
+        for(Book book:books){
+            //to remove the elemet from the vector
+            if(book.getBookID().equals(bookId)){
+                books.remove(i);
+            }
+            book.displayBook();
+            i++;
+        }
     
     }
 
-    //edit book detail
+    //edit book details
     //the data inside booksDatabase also will be edited base on the bookId
 
-
-
-
-    public boolean editBookDetail(Book b){
+    public void editBookDetails(String bookId, String title, String mainAuthor, String genre, int quantityInStock) throws IOException{
+        Vector<Book> books = new Vector<Book>();
+        System.out.println("═════════════Before Edit═════════════");
+        books = getBooksfromFile();
+        PrintWriter outputFile = new PrintWriter(new FileWriter("booksDatabase.txt"));
         for(Book book:books){
-            if(book.getBookID().equals(b.getBookID())){
-                book.setBookID(b.getTitle());
-                book.setTitle(b.getMainAuthor());
-                book.setGenre(b.getGenre());
-                book.setQuantityInStock(b.getQuantityInStock());
-                return true;
+            if(book.getBookID().equals(bookId)){
+                book.setTitle(title);
+                book.setMainAuthor(mainAuthor);
+                book.setGenre(genre);
+                book.setQuantityInStock(quantityInStock);
             }
+            outputFile.write(book.getBookID()+ " "+book.getTitle()+ " "+book.getMainAuthor()+ " "+book.getGenre()+ " "+book.getQuantityInStock()+"\n");
         }
-        return false;
+        outputFile.close();
+        System.out.println("═════════════After Edit═════════════");
+        books = getBooksfromFile();
     }
-
-    public Vector<Book> displayBookDetails(){
-        return books;
-    }
-
-        // Vector<Book> books = new Vector<Book>();
-        // books = getBooksfromFile();
-        // for(Book book : books){
-        //         return book.getTitle();
-        // }
-        // return null;
 }

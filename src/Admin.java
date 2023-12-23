@@ -86,6 +86,19 @@ class Admin extends User {
                     System.out.println("Press any key to continue...");
                     sc.nextLine();
                     break;
+                case 2:
+                    System.out.print("Enter the book Id to edit: ");
+                    String editBookID = sc.next();
+                    System.out.print("Enter the book title: ");
+                    String editTitle = sc.next();
+                    System.out.print("Enter the book main author: ");
+                    String editMainAuthor = sc.next();
+                    System.out.print("Enter the book genre: ");
+                    String editGenre = sc.next();
+                    System.out.print("Enter the book quantity in stock: ");
+                    int editQuantityInStock = sc.nextInt();
+                    books.editBookDetails(editBookID, editTitle, editMainAuthor, editGenre, editQuantityInStock);
+                    break;
                 case 3:
                     System.out.print("Enter the book Id to Remove: ");
                     String RemoveBookID = sc.next();
