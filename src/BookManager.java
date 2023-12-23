@@ -43,18 +43,21 @@ public class BookManager {
 
     // remove book from file
     //the data inside booksDatabase also will be deleted base on the bookId
-    public boolean removeBookFromFile(String bookId) throws IOException{
+    public void removeBookFromFile(String bookId) throws IOException{
         Vector<Book> books = new Vector<Book>();
+        System.out.println("═════════════Before Remove═════════════");
         books = getBooksfromFile();
+        PrintWriter outputFile = new PrintWriter(new FileWriter("booksDatabase.txt"));
         for(Book book:books){
             if(book.getBookID().equals(bookId)){
-                books.remove(book);
-                return true;
+                continue;
             }
+            outputFile.write(book.getBookID()+ " "+book.getTitle()+ " "+book.getMainAuthor()+ " "+book.getGenre()+ " "+book.getQuantityInStock()+"\n");
         }
-        books = displayBookDetails();
-        
-        return false;
+        outputFile.close();
+        System.out.println("═════════════After Remove═════════════");
+        books = getBooksfromFile();
+    
     }
 
     //edit book detail
