@@ -26,11 +26,6 @@ class CustomerManager{
         outputFile.close();
         customers.add(c);
 
-<<<<<<< Updated upstream
-        for(Customer ci:customers){
-            System.out.println(ci.getUserName());
-        }
-=======
         System.out.println("Your username : "+c.getUserName()+"\nYour Password: "+c.getPassword());
     }
 
@@ -81,6 +76,5 @@ class CustomerManager{
         }
 
         return true;
->>>>>>> Stashed changes
     }
 }

@@ -1,19 +1,10 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
-<<<<<<< Updated upstream
-import java.util.function.Supplier;
-=======
->>>>>>> Stashed changes
 
 public class InventorySystem {
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
-<<<<<<< Updated upstream
-        int choice;
-=======
         int choice, userOption;
->>>>>>> Stashed changes
         User user = new User();
         do{
             System.out.print("\033[H\033[2J");  
@@ -46,9 +37,6 @@ public class InventorySystem {
                 }
             }while(user == null);
             if(user.getUserRole() == 1){
-<<<<<<< Updated upstream
-                int value = Admin.viewAdminMenu();
-=======
                 BookManager bkm = new BookManager();
                 do {
                     scan.nextLine();
@@ -84,7 +72,6 @@ public class InventorySystem {
                 } while (userOption !=7);
                 
 
->>>>>>> Stashed changes
                 //if else/ case.
             }else{
                 int value = BookSupplier.viewSupplierMenu();
@@ -127,12 +114,6 @@ public class InventorySystem {
 scan.close();
     }
 
-<<<<<<< Updated upstream
-    public static void header(){
-            System.out.println("******************************************");
-            System.out.println("*                                        *");
-            System.out.println("*     Welcome to Kedai Buku Ali!         *");
-=======
 
     public static int manageMenu() throws IOException{
         BookManager bkm = new BookManager();
@@ -182,7 +163,6 @@ scan.close();
             System.out.println("******************************************");
             System.out.println("*                                        *");
             System.out.println("*     Welcome to Kedai Buku Kamal!        *");
->>>>>>> Stashed changes
             System.out.println("*  Your One-Stop Bookstore Experience :) *");
             System.out.println("*                                        *");
             System.out.println("******************************************");

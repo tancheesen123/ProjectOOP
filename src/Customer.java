@@ -26,30 +26,19 @@ class Customer extends User{
         cust = CustomerManager.getCustomersfromFile();
         Scanner sc = new Scanner(System.in);
 
-<<<<<<< Updated upstream
-        System.out.print("\n\nEnter your username: ");
-=======
         System.out.print("\n\nEnter your username (No spaces in-between): ");
->>>>>>> Stashed changes
         String username = sc.nextLine();
 
         for(Customer c:cust){
             while (c.getUserName().equals(username)) {
                 System.out.println("Username already exists. Please choose a different username.");
-<<<<<<< Updated upstream
-                System.out.print("\nEnter a new username: ");
-=======
                 System.out.print("\nEnter a new username (No spaces in-between): ");
->>>>>>> Stashed changes
                 username = sc.nextLine();
             }
         }
 
-<<<<<<< Updated upstream
-=======
         username = username.replaceAll("\\s","");
 
->>>>>>> Stashed changes
         System.out.print("Enter your email: ");
         String email = sc.nextLine();
 

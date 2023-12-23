@@ -29,24 +29,6 @@ class Admin extends User {
             System.out.println("║           Admin Menu          ║");
             System.out.println("╠═══════════════════════════════╣");
             System.out.println("║ 1. View Books Catalog         ║");
-<<<<<<< Updated upstream
-            System.out.println("║ 2. View Book Inventory Levels ║");
-            System.out.println("║ 3. Manage Orders              ║");
-            System.out.println("║ 4. Manage Book                ║");
-            System.out.println("║ 5. Generate Report            ║");
-            System.out.println("║ 6. Manage Customers           ║");
-            System.out.println("║ 7. Exit                       ║");
-            System.out.println("╚═══════════════════════════════╝");
-
-            System.out.print("\n\n Enter the option (1-7) : ");
-            option = sc.nextInt();
-
-            if(option < 1 || option > 7){
-                System.out.println("Invalid option entered. Please enter a number between 1 and 7. Try Again :)");
-            }
-
-        }while(option < 1 || option > 7);
-=======
             System.out.println("║ 2. Manage Orders              ║");
             System.out.println("║ 3. Manage Book                ║");
             System.out.println("║ 4. Generate Report            ║");
@@ -62,7 +44,6 @@ class Admin extends User {
             }
 
         }while(option < 1 || option > 6);
->>>>>>> Stashed changes
         return option;
     }
 
