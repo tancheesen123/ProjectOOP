@@ -7,15 +7,25 @@ class Book{
     private String mainAuthor;
     private int genre;
     private int quantityInStock;
+    private double bookPrice; //tmb
+
 
     public Book(){}
 
-    public Book(String id, String titleBook, String author, int genreCat, int stock){
+    public Book(String id, String titleBook, String author, int genreCat, int stock,double price){
         bookID = id;
         title = titleBook;
         mainAuthor = author;
         genre = genreCat;
         quantityInStock = stock;
+        bookPrice = price; //tmb
+    }
+
+    public double getBookPrice() { //tmb
+        return bookPrice;
+    }
+    public void setBookPrice(double bookPrice) { //tmb
+        this.bookPrice = bookPrice;
     }
 
     public String getBookID() {
@@ -72,11 +82,10 @@ class Book{
         }
         String title = getTitle().replaceAll("_", " ");
         String author = getMainAuthor().replaceAll("_", " ");
-        if(role ==1){
-            System.out.printf("║%-8s║%-30s║%-30s║%-22s║%-24d║%n", getBookID(), title, author, genreStr, getQuantityInStock());
-        }else{
-            System.out.printf("║%-8s║%-30s║%-30s║%-22s║%n", getBookID(), title, author, genreStr);
-
+        if (role == 1) {
+            System.out.printf("║%-8s║%-30s║%-30s║%-22s║%-24d║%-20.2f║%n", getBookID(), title, author, genreStr, getQuantityInStock(), getBookPrice());
+        } else {
+            System.out.printf("║%-8s║%-30s║%-30s║%-22s║%-20.2f║%n", getBookID(), title, author, genreStr, getBookPrice());
         }
     }
 
@@ -90,7 +99,8 @@ class Book{
             String mainAuthor = sc.next();
             int genre = sc.nextInt();
             int quantityInStock = sc.nextInt();
-            Book book = new Book(bookId, title, mainAuthor, genre, quantityInStock);
+            double bookPrice = sc.nextDouble();
+            Book book = new Book(bookId, title, mainAuthor, genre, quantityInStock,bookPrice);
             books.add(book);
         }
         return books; 
@@ -139,13 +149,24 @@ class Book{
             }
         }while(quantityInStock<=0);
 
+        double bookPrice;
+        do{
+            System.out.print("\nEnter Book Price (RM): ");
+            bookPrice = scan.nextDouble();
+            if (bookPrice >= 0) {
+                break;
+            } else {
+                System.out.println("Invalid price entered. Please try again.");
+            }
+        }while(bookPrice<=0);
 
 
-        Book c = new Book(id, ttl, mainAuthor, genreOption, quantityInStock);
+
+        Book c = new Book(id, ttl, mainAuthor, genreOption, quantityInStock,bookPrice);
         PrintWriter outputFile = new PrintWriter(new FileWriter("booksDatabase.txt",true));
         String title = c.getTitle().replaceAll(" ", "_");
         String author = c.getMainAuthor().replaceAll(" ", "_");
-        outputFile.write(c.getBookID()+ " "+title+ " "+author+ " "+c.getGenre()+ " "+c.getQuantityInStock()+"\n");
+        outputFile.write(c.getBookID()+ " "+title+ " "+author+ " "+c.getGenre()+ " "+c.getQuantityInStock()+" "+c.getBookPrice()+"\n");
         outputFile.close();
         bk.add(c);
     }
@@ -154,7 +175,12 @@ class Book{
         // Vector<Book> books = new Vector<Book>();
         // books = getBooksfromFile(); // double check with sarveish as we might use association here.
         System.out.print("╔════════╦══════════════════════════════╦══════════════════════════════╦══════════════════════╦════════════════════════╗\n");
-        System.out.print("║Book ID ║            Title             ║         Main Author          ║         Genre        ║    Stock Available     ║\n");
+        if(role == 1){
+            System.out.print("║Book ID ║            Title             ║         Main Author          ║         Genre        ║       Stock Quantity        ║       Price (RM)        ║\n");
+
+        }else{
+            System.out.print("║Book ID ║            Title             ║         Main Author          ║         Genre        ║    Price (RM)      ║\n");
+        }
         System.out.print("╠════════╬══════════════════════════════╬══════════════════════════════╬══════════════════════╬════════════════════════╣\n");
         for(Book bk:books){
             bk.displayBook(role);
@@ -182,15 +208,16 @@ class Book{
             System.out.println("║ 2. Book Main Author           ║");
             System.out.println("║ 3. Book Genre                 ║");
             System.out.println("║ 4. Book Stock Quantity        ║");
-            System.out.println("║ 5. Back                       ║");
+            System.out.println("║ 5. Book Price                 ║");
+            System.out.println("║ 6. Back                       ║");
             System.out.println("╚═══════════════════════════════╝");
             System.out.print("\nEnter your option (1-5): ");
             option = scan.nextInt();
 
-            if(option < 1 || option >5){
-                System.out.println("Invalid option entered. Please enter a number between 1 and 5. Try Again :)");
+            if(option < 1 || option >6){
+                System.out.println("Invalid option entered. Please enter a number between 1 and 6. Try Again :)");
             }
-        } while (option < 1 || option >5);
+        } while (option < 1 || option >6);
         scan.nextLine();
         System.out.println("Enter Book ID : "); 
         String  id = scan.nextLine();
@@ -243,6 +270,9 @@ class Book{
                 val = editBookDetails(books,option, id, newVal);
                 break;
             case 5:
+                System.out.println("Enter new book price (RM) : ");
+                newVal = scan.nextLine();
+                val = editBookDetails(books,option, id, newVal);
                 break;
             default:
                 break;
@@ -285,7 +315,7 @@ class Book{
             if(book.getBookID().equals(bookId)){
                 break;
             }else{
-                outputFile.write(book.getBookID()+ " "+book.getTitle()+ " "+book.getMainAuthor()+ " "+book.getGenre()+ " "+book.getQuantityInStock()+"\n");
+                outputFile.write(book.getBookID()+ " "+book.getTitle()+ " "+book.getMainAuthor()+ " "+book.getGenre()+ " "+book.getQuantityInStock()+" "+book.getBookPrice()+"\n");
             }
             index++;
         }
@@ -294,8 +324,6 @@ class Book{
     }
 
     public Boolean editBookDetails(Vector<Book> books,int category, String id, String value) throws IOException{
-        // Vector<Book> books = new Vector<Book>();
-        // books = getBooksfromFile(); // double check with sarveish as we might use association here.
         value = value.replaceAll(" ", "_");
         for(Book book:books){
             if(book.getBookID().equals(id)){
@@ -311,6 +339,9 @@ class Book{
                         break;
                     case 4:
                         book.setGenre(Integer.parseInt(value));
+                        break;
+                    case 5:
+                        book.setBookPrice(Double.parseDouble(value));
                     default:
                         return false;
                 }
@@ -320,7 +351,7 @@ class Book{
         if(books !=null){
             FileWriter file = new FileWriter("booksDatabase.txt",false);
             for (Book bk : books) {
-                file.write(bk.getBookID()+ " "+bk.getTitle()+ " "+bk.getMainAuthor()+ " "+bk.getGenre()+ " "+bk.getQuantityInStock()+"\n");
+                file.write(bk.getBookID()+ " "+bk.getTitle()+ " "+bk.getMainAuthor()+ " "+bk.getGenre()+ " "+bk.getQuantityInStock()+" "+bk.getBookPrice()+"\n");
             }
             file.close();
         }

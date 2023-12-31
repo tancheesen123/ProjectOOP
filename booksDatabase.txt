@@ -1,11 +1,9 @@
-B001 The_Great_Gatsby Scott_Fitzgerald 1 50
-B002 To_Kill_a_Mockingbird Harper_Lee 2 30
-B003 1984 George_Orwell 2 25
-B004 The_Catcher_in_the_Rye J.D.Salinger 5 40
-B005 Pride_and_Prejudice Jane_Austen 3 35
-B006 The_Hobbit J.R.R.Tolkien 2 20
-B007 The_Da_Vinci Dan_Brown 2 45
-B008 The_Harry_Potter_Series J.K.Rowling 1 60
-ok ok ok 1 12
-1333 sdfsdfs sdfsdfs 2 9
-dsfdsf dsffsfds s22esdf 1 1
+B001 The_Great_Gatsby Scott_Fitzgerald 1 50 23.90
+B002 To_Kill_a_Mockingbird Harper_Lee 2 30 13.90
+B003 1984 George_Orwell 2 25 29.90
+B004 The_Catcher_in_the_Rye J.D.Salinger 5 40 33.90
+B005 Pride_and_Prejudice Jane_Austen 3 35 13.90
+B006 The_Hobbit J.R.R.Tolkien 2 20 23.60
+B007 The_Da_Vinci Dan_Brown 2 45 20.90
+B008 The_Harry_Potter_Series J.K.Rowling 1 60 18.90
+ok ok ok 1 12 12.80

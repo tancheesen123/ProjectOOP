@@ -51,22 +51,24 @@ public class InventorySystem {
                             b.viewAllBooks(((Admin)realUser).getBooks(),realUser.getUserRole());
                             break;
                         case 2:
-                            //manage orders
+                            //Order Book
                             break;
                         case 3:
-                            int val = manageMenu(realUser.getUserRole());
+                            //view customer orders
+                            break;
+                        case 4:
+                             int val = manageMenu(realUser.getUserRole());
                             if(val == 9){
                                 
                             }
                             break;
-                        case 4:
+                        case 5:
                             //generate report
                             break;
-                        case 5:
-                            //manage customers
+                        case 6:
                             ((Admin) realUser).viewAllCustomers(new Customer());
                             break;
-                        case 6:
+                        case 7:
                             System.exit(0);
                             break;
                         default:
@@ -95,7 +97,7 @@ public class InventorySystem {
                 int value = realUser.viewMenu();
                 switch (value) {
                     case 1:
-                        //View All Orders - All status
+                        //View All Orders - All status with user roleID ==1
                         break;
                     case 2:
                         //Approval Order - Show Pending, allow them to enter orderID, then approve or reject
@@ -110,7 +112,6 @@ public class InventorySystem {
             }
             }
         }else{
-            // Customer c = new Customer();
             do{
                 System.out.println("Customer Options:\n\t1. Login\n\t2. Register");
                 System.out.print("\nEnter the option (1-2) : ");
@@ -194,7 +195,7 @@ scan.close();
             option = scan.nextInt();
 
             if(option < 1 || option >4){
-                System.out.println("Invalid option entered. Please enter a number between 1 and 5. Try Again :)");
+                System.out.println("Invalid option entered. Please enter a number between 1 and 4. Try Again :)");
             }
         } while (option < 1 || option >4);
 
@@ -216,4 +217,6 @@ scan.close();
             System.out.println("*                                        *");
             System.out.println("******************************************");
     }
+
+    
 }
