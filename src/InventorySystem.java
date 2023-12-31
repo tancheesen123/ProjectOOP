@@ -5,7 +5,7 @@ import java.util.Vector;
 public class InventorySystem {
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
-        int choice, userOption;
+        int choice, userOption, userOptionSupplier;
         User user = new User();
         do{
             System.out.print("\033[H\033[2J");  
@@ -52,6 +52,21 @@ public class InventorySystem {
                             break;
                         case 2:
                             //Order Book
+                            b.viewAllBooks(((Admin)realUser).getBooks(),realUser.getUserRole());
+                            System.out.print("How many book do u wanna Order:");
+                            int orderQuantity = scan.nextInt();
+                            scan.nextLine();
+                            for(int i = 0; i < orderQuantity; i++){
+                                System.out.print("Enter the book ID to order : ");
+                                String bookID = scan.nextLine();
+                                System.out.print("Enter book Quantity : ");
+                                int Bookquantity = scan.nextInt();
+                                OrderManagement order = new OrderManagement();
+                                order.orderBook(bookID, Bookquantity, realUser);
+                                //OrderManagement.orderBook(()bookID, quantity , roleId);
+                                scan.nextLine();
+                            }
+                            //OrderManagement.orderBook(()bookID, quantity , roleId);
                             break;
                         case 3:
                             //view customer orders
@@ -98,6 +113,14 @@ public class InventorySystem {
                 switch (value) {
                     case 1:
                         //View All Orders - All status with user roleID ==1
+                        Vector<OrderManagement> orderList = new Vector<OrderManagement>();
+                        OrderManagement order = new OrderManagement();
+                        // book.getBooksfromFile();
+                        orderList = order.getOrderFromFile();
+                        for(OrderManagement o: orderList){
+                            System.out.println(o.getOrderID()+" "+o.getTotalAmount()+" "+o.getOrderDate()+" "+o.getOrderStatus()+" "+
+                            o.getUser().userID+" "+o.getUser().userRole);
+                        }
                         break;
                     case 2:
                         //Approval Order - Show Pending, allow them to enter orderID, then approve or reject
@@ -146,6 +169,20 @@ public class InventorySystem {
                             break;
                         case 2:
                             //Order books
+                            b.viewAllBooks(b.getBooksfromFile(),realUser.getUserRole());
+                            System.out.print("How many book do u wanna Order:");
+                            int orderQuantity = scan.nextInt();
+                            scan.nextLine();
+                            for(int i = 0; i < orderQuantity; i++){
+                                System.out.print("Enter the book ID to order : ");
+                                String bookID = scan.nextLine();
+                                System.out.print("Enter book Quantity : ");
+                                int Bookquantity = scan.nextInt();
+                                OrderManagement order = new OrderManagement();
+                                order.orderBook(bookID, Bookquantity, realUser);
+                                //OrderManagement.orderBook(()bookID, quantity , roleId);
+                                scan.nextLine();
+                            }
                             break;
                         case 3:
                             

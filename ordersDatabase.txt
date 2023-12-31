@@ -1,0 +1,8 @@
+OR001 1709.7 B002 To_Kill_a_Mockingbird Harper_Lee 2 30 13.9 admin123 1 Pending 2023-12-31
+OR001 764.8 B001 The_Great_Gatsby Scott_Fitzgerald 1 50 23.9 admin123 1 Pending 2023-12-31
+OR001 27.8 B005 Pride_and_Prejudice Jane_Austen 3 35 13.9 admin123 1 Pending 2023-12-31
+OR001 13.9 B002 To_Kill_a_Mockingbird Harper_Lee 2 30 13.9 admin123 1 Pending 2023-12-31
+OR001 4461.900000000001 B002 To_Kill_a_Mockingbird Harper_Lee 2 30 13.9 admin123 1 Pending 2023-12-31
+OR001 18.9 B008 The_Harry_Potter_Series J.K.Rowling 1 60 18.9 admin123 1 Pending 2023-12-31
+OR001 549.6999999999999 B001 The_Great_Gatsby Scott_Fitzgerald 1 50 23.9 admin123 1 Pending 2023-12-31
+OR001 319.7 B002 To_Kill_a_Mockingbird Harper_Lee 2 30 13.9 admin123 1 Pending 2023-12-31

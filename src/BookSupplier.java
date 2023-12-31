@@ -31,9 +31,10 @@ class BookSupplier extends User{
             System.out.println("╔═══════════════════════════════╗");
             System.out.println("║          Supplier Menu        ║");
             System.out.println("╠═══════════════════════════════╣");
-            System.out.println("║ 1. Order Approval             ║");
-            System.out.println("║ 2. Manage Account             ║");
-            System.out.println("║ 3. Exit                       ║");
+            System.out.println("║ 1. View all Orders            ║");
+            System.out.println("║ 2. Approval Order             ║");
+            System.out.println("║ 3. Manage Account             ║");
+            System.out.println("║ 4. Exit                       ║");
             System.out.println("╚═══════════════════════════════╝");
 
             System.out.print("\n\n Enter the option (1-3) : ");
