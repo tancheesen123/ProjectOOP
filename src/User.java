@@ -1,23 +1,24 @@
 import java.io.*;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
-class User {
-   private String userID;
-   private String userName;
-   private String password;
-   private String email;
-   private int userRole;
+class User extends Menu{
+    protected String userID;
+    protected String userName;
+    protected String password;
+    protected String email;
+    protected int userRole;
+    private Name name;
 
-   public User( String id, String name ,String pw, String mail, int roleID){
+    public User( String id, String names ,String pw, String mail, int roleID,String fName, String lName){
         userID = id;
-        userName = name;
+        userName = names;
         password = pw;
         email = mail;
         userRole = roleID;
-   }
+        name = new Name(fName,lName); //composition done
+    }
 
-   public User(){}
+    public User(){}
 
     public String getUserID() {
         return userID;
@@ -49,28 +50,8 @@ class User {
     public void setUserRole(int userRole) {
         this.userRole = userRole;
     }
-
-    public static Vector<User> readFromUserFile(int userRoleID) throws FileNotFoundException{
-        Vector<User> cust = new Vector<User>();
-        Scanner sc = new Scanner(new File("userDatabase.txt"));
-
-        while(sc.hasNext()){
-            String id = sc.next();
-            String name = sc.next();
-            String pw = sc.next();
-            String mail = sc.next();
-            int roleID = sc.nextInt();
-
-            if(roleID == userRoleID){
-                User temp = new User(id, name, pw, mail, roleID);
-                cust.add(temp);
-            }
-        }
-
-        sc.close();
-
-        return cust;
-
+    public Name getName(){
+        return name;
     }
 
     public static User login(String name, String pw, int roleID) throws FileNotFoundException{
@@ -84,5 +65,57 @@ class User {
         return null;
     }
 
+    public static Vector<User> readAllUsers() throws FileNotFoundException{
+        Vector<User> cust = new Vector<User>();
+        Scanner sc = new Scanner(new File("userDatabase.txt"));
+        
+        while(sc.hasNext()){
+            String id = sc.next();
+            String name = sc.next();
+            String pw = sc.next();
+            String mail = sc.next();
+            String fullName = sc.next();
+            int roleID = sc.nextInt();
+            String[] ary = fullName.split("_");
+            String fName = ary[0];
+            String lName = ary[1];
+            User tempUser = new User(id, name, pw, mail, roleID,fName,lName);
+            cust.add(tempUser);
+        }
+        
+        return cust;
 
+    }
+
+    public static Vector<User> readFromUserFile(int userRoleID) throws FileNotFoundException{
+        Vector<User> cust = new Vector<User>();
+        Scanner sc = new Scanner(new File("userDatabase.txt"));
+        
+        while(sc.hasNext()){
+            String id = sc.next();
+            String name = sc.next();
+            String pw = sc.next();
+            String mail = sc.next();
+            String fullName = sc.next();
+            int roleID = sc.nextInt();
+
+            if(roleID == userRoleID){
+                String[] ary = fullName.split("_");
+                String fName = ary[0];
+                String lName = ary[1];
+                User temp = new User(id, name, pw, mail, roleID,fName,lName);
+                cust.add(temp);
+            }
+        }
+
+        sc.nextLine();
+        sc.close();
+        
+        return cust;
+
+    }
+
+     protected int viewMenu(){
+        return 0;
+     } //Polymorphism done using abstraction.
 }

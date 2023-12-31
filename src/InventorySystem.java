@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class InventorySystem {
     public static void main(String[] args) throws IOException {
@@ -25,6 +26,7 @@ public class InventorySystem {
         System.out.flush();
         header();
         if(choice == 1 || choice ==3){
+            if(choice ==1){
             do{
                 scan.nextLine();
                 System.out.print("\n\nEnter username : ");
@@ -36,21 +38,23 @@ public class InventorySystem {
                     System.out.println("Invalid Credentials Entered. Please Try Again!");
                 }
             }while(user == null);
-            if(user.getUserRole() == 1){
-                BookManager bkm = new BookManager();
+            Book b = new Book();
+            User realUser = new Admin(user.getUserID(), user.getUserName(),user.getPassword(),user.getEmail(), user.getUserRole(), user.getName().getfName(), user.getName().getlName(),b.getBooksfromFile());
+
+            if(realUser.getUserRole() == 1){ //admin
+                // BookManager bkm = new BookManager();
                 do {
                     scan.nextLine();
-                    userOption = Admin.viewAdminMenu();
+                    userOption = realUser.viewMenu();
                     switch (userOption) {
                         case 1:
-                            bkm.viewAllBooks(1);
-
+                            b.viewAllBooks(((Admin)realUser).getBooks(),realUser.getUserRole());
                             break;
                         case 2:
                             //manage orders
                             break;
                         case 3:
-                            int val = manageMenu();
+                            int val = manageMenu(realUser.getUserRole());
                             if(val == 9){
                                 
                             }
@@ -60,8 +64,7 @@ public class InventorySystem {
                             break;
                         case 5:
                             //manage customers
-                            CustomerManager cust = new CustomerManager();
-                            cust.viewAllCustomers();
+                            ((Admin) realUser).viewAllCustomers(new Customer());
                             break;
                         case 6:
                             System.exit(0);
@@ -73,11 +76,41 @@ public class InventorySystem {
                 
 
                 //if else/ case.
-            }else{
-                int value = BookSupplier.viewSupplierMenu();
-                //if else/ case.
+            }
+            }else{ //supplier
+            do{
+                scan.nextLine();
+                System.out.print("\n\nEnter username : ");
+                String uName = scan.nextLine();
+                System.out.print("\nEnter password : ");
+                String pw = scan.nextLine();
+                user = User.login(uName, pw, choice);
+                if(user == null){
+                    System.out.println("Invalid Credentials Entered. Please Try Again!");
+                }
+            }while(user == null);
+                User realUser = new BookSupplier(user.getUserID(), user.getUserName(),user.getPassword(),user.getEmail(), user.getUserRole(), user.getName().getfName(), user.getName().getlName());
+              
+                if(realUser.getUserRole()==3){
+                int value = realUser.viewMenu();
+                switch (value) {
+                    case 1:
+                        //View All Orders - All status
+                        break;
+                    case 2:
+                        //Approval Order - Show Pending, allow them to enter orderID, then approve or reject
+                        break;
+                    case 3:
+                        BookSupplier.manageAccount(realUser);
+                        break;
+                
+                    default:
+                        break;
+                }
+            }
             }
         }else{
+            // Customer c = new Customer();
             do{
                 System.out.println("Customer Options:\n\t1. Login\n\t2. Register");
                 System.out.print("\nEnter the option (1-2) : ");
@@ -101,13 +134,40 @@ public class InventorySystem {
                         System.out.println("Invalid Credentials Entered. Please Try Again!");
                     }
                 }while(user == null);
-                int value = Customer.viewCustomerMenu();
+                Book b = new Book();
+                User realUser = new Customer(user.getUserID(), user.getUserName(),user.getPassword(),user.getEmail(), user.getUserRole(), user.getName().getfName(), user.getName().getlName());
+                do {
+                    scan.nextLine();
+                    userOption = realUser.viewMenu();
+                    switch (userOption) {
+                        case 1:
+                            b.viewAllBooks(b.getBooksfromFile(),realUser.getUserRole());
+                            break;
+                        case 2:
+                            //Order books
+                            break;
+                        case 3:
+                            
+                            break;
+                        case 4:
+                            //generate report
+                            break;
+                        case 5:
+                            //manage customers
+                            ((Admin) realUser).viewAllCustomers(new Customer());
+                            break;
+                        case 6:
+                            System.exit(0);
+                            break;
+                        default:
+                            break;
+                    }
+                } while (userOption !=7);
                 //if else/ case
             }else{
                 Customer.registration();
                 System.out.println("Successfully Registered..You will be navigated to Login :)");
                 scan.nextLine();
-
             }
 
         }
@@ -115,8 +175,7 @@ scan.close();
     }
 
 
-    public static int manageMenu() throws IOException{
-        BookManager bkm = new BookManager();
+    public static int manageMenu(int roleID) throws IOException{
         int option;
         Scanner scan = new Scanner(System.in);
         do {
@@ -143,18 +202,8 @@ scan.close();
         if(option == 4){
             return 9;
         }else{
-            switch (option) {
-                case 1:
-                    bkm.addBooksIntoFile();
-                    break;
-                case 2:
-                    bkm.removeBookFromFile();
-                    break;
-                case 3:
-                    bkm.updateBookMenu(1);
-                default:
-                    break;
-            }
+            Book bk = new Book(); //creating a book with empty constructor and dont hold any value to send as param in admin's method.
+            Admin.manageBookOperation(bk, option, roleID);
             return option;
         }
 
