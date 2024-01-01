@@ -61,10 +61,12 @@ class Admin extends User {
             System.out.println("║ 1. View Books Catalog         ║");
             System.out.println("║ 2. Order Book                 ║");
             System.out.println("║ 3. View Customer Orders       ║");
-            System.out.println("║ 4. Manage Book                ║");
-            System.out.println("║ 5. Generate Report            ║");
-            System.out.println("║ 6. View All Customers         ║");
-            System.out.println("║ 7. Exit                       ║");
+            System.out.println("║ 4. View Supplier Orders       ║");
+            System.out.println("║ 5. View All Orders            ║");
+            System.out.println("║ 6. Manage Book                ║");
+            System.out.println("║ 7. Generate Report            ║");
+            System.out.println("║ 8. View All Customers         ║");
+            System.out.println("║ 9. Exit                       ║");
             System.out.println("╚═══════════════════════════════╝");
 
             System.out.print("\n\n Enter the option (1-6) : ");

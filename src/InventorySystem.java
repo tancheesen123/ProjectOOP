@@ -53,17 +53,23 @@ public class InventorySystem {
                         case 2:
                             //Order Book
                             b.viewAllBooks(((Admin)realUser).getBooks(),realUser.getUserRole());
+                            Vector<OrderManagement> orderListAdmin = new Vector<OrderManagement>();
+                            OrderManagement orderrr = new OrderManagement();
+                            orderListAdmin = orderrr.getOrderFromFile(user.getUserRole());
+                            int n = orderListAdmin.size()+1;
                             System.out.print("How many book do u wanna Order:");
                             int orderQuantity = scan.nextInt();
                             scan.nextLine();
+
                             for(int i = 0; i < orderQuantity; i++){
                                 System.out.print("Enter the book ID to order : ");
                                 String bookID = scan.nextLine();
                                 System.out.print("Enter book Quantity : ");
                                 int Bookquantity = scan.nextInt();
                                 OrderManagement order = new OrderManagement();
-                                order.orderBook(bookID, Bookquantity, realUser);
+                                order.orderBook(bookID, Bookquantity, realUser, n);
                                 //OrderManagement.orderBook(()bookID, quantity , roleId);
+                                n++;
                                 scan.nextLine();
                             }
                             //OrderManagement.orderBook(()bookID, quantity , roleId);
@@ -73,29 +79,47 @@ public class InventorySystem {
                             OrderManagement order = new OrderManagement();
                             orderList = order.getOrderFromFile(realUser.getUserRole());
                             // System.out.println(orderList);
-                            order.viewAllOrders(orderList,realUser.getUserRole());
+                            order.viewAllOrders(orderList,realUser.getUserRole(),"Customer");
                             scan.nextLine();
                             //view customer orders
                             break;
                         case 4:
+                            Vector<OrderManagement> orderListSupplier = new Vector<OrderManagement>();
+                            OrderManagement orderSup = new OrderManagement();
+                            orderListSupplier = orderSup.getOrderFromFile(realUser.getUserRole());
+                            // System.out.println(orderList);
+                            orderSup.viewAllOrders(orderListSupplier,realUser.getUserRole(),"Supplier");
+                            scan.nextLine();
+                            //view Supplier orders
+                            break;
+                        case 5:
+                            Vector<OrderManagement> orderListAll = new Vector<OrderManagement>();
+                            OrderManagement orderAll = new OrderManagement();
+                            orderListAll = orderAll.getOrderFromFile(realUser.getUserRole());
+                            // System.out.println(orderList);
+                            orderAll.viewAllOrders(orderListAll,realUser.getUserRole(),"All");
+                            scan.nextLine();
+                            //view Supplier orders
+                            break;
+                        case 6:
                              int val = manageMenu(realUser.getUserRole());
                             if(val == 9){
                                 
                             }
                             break;
-                        case 5:
+                        case 7:
                             //generate report
                             break;
-                        case 6:
+                        case 8:
                             ((Admin) realUser).viewAllCustomers(new Customer());
                             break;
-                        case 7:
+                        case 9:
                             System.exit(0);
                             break;
                         default:
                             break;
                     }
-                } while (userOption !=7);
+                } while (userOption !=9);
                 
 
                 //if else/ case.
@@ -116,7 +140,6 @@ public class InventorySystem {
               
                 if(realUser.getUserRole()==3){
                 do {
-                    scan.nextLine();
                     userOptionSupplier = realUser.viewMenu();
                     switch (userOptionSupplier) {
                         case 1:
@@ -125,7 +148,7 @@ public class InventorySystem {
                             OrderManagement order = new OrderManagement();
                             orderList = order.getOrderFromFile(realUser.getUserRole());
                             // System.out.println(orderList);
-                            order.viewAllOrders(orderList,realUser.getUserRole());
+                            order.viewAllOrders(orderList,realUser.getUserRole(),"");
                             // for(OrderManagement o: orderList){
                             //     System.out.println(o.getOrderID()+" "+o.getTotalAmount()+" "+o.getOrderDate()+" "+o.getOrderStatus()+" "+
                             //     o.getUser().userID+" "+o.getUser().userRole);
@@ -135,6 +158,16 @@ public class InventorySystem {
                             break;
                         case 2:
                             //Approval Order - Show Pending, allow them to enter orderID, then approve or reject
+                            Vector<OrderManagement> orders = new Vector<OrderManagement>();
+                            OrderManagement orderApproval = new OrderManagement();
+                            BookSupplier supplier = new BookSupplier();
+
+                            orders = orderApproval.getOrderFromFile(realUser.getUserRole());
+                            // System.out.println(orderList);
+                            orderApproval.viewAllOrders(orders,realUser.getUserRole(),"");
+                            supplier.updateOrderStatus(orders,realUser);
+                            //OrderManagement.orderBook(()bookID, quantity , roleId);
+                            // scan.nextLine();
                             break;
                         case 3:
                             BookSupplier.manageAccount(realUser);
@@ -181,6 +214,11 @@ public class InventorySystem {
                             break;
                         case 2:
                             //Order books
+                            Vector<OrderManagement> orderListSupplier = new Vector<OrderManagement>();
+                            OrderManagement orderrr = new OrderManagement();
+                            orderListSupplier = orderrr.getOrderFromFile(user.getUserRole());
+                            int n = orderListSupplier.size()+1;
+
                             b.viewAllBooks(b.getBooksfromFile(),realUser.getUserRole());
                             System.out.print("How many book do u wanna Order:");
                             int orderQuantity = scan.nextInt();
@@ -191,7 +229,7 @@ public class InventorySystem {
                                 System.out.print("Enter book Quantity : ");
                                 int Bookquantity = scan.nextInt();
                                 OrderManagement order = new OrderManagement();
-                                order.orderBook(bookID, Bookquantity, realUser);
+                                order.orderBook(bookID, Bookquantity, realUser, n);
                                 //OrderManagement.orderBook(()bookID, quantity , roleId);
                                 scan.nextLine();
                             }
