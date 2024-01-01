@@ -69,6 +69,12 @@ public class InventorySystem {
                             //OrderManagement.orderBook(()bookID, quantity , roleId);
                             break;
                         case 3:
+                            Vector<OrderManagement> orderList = new Vector<OrderManagement>();
+                            OrderManagement order = new OrderManagement();
+                            orderList = order.getOrderFromFile(realUser.getUserRole());
+                            // System.out.println(orderList);
+                            order.viewAllOrders(orderList,realUser.getUserRole());
+                            scan.nextLine();
                             //view customer orders
                             break;
                         case 4:
@@ -109,29 +115,35 @@ public class InventorySystem {
                 User realUser = new BookSupplier(user.getUserID(), user.getUserName(),user.getPassword(),user.getEmail(), user.getUserRole(), user.getName().getfName(), user.getName().getlName());
               
                 if(realUser.getUserRole()==3){
-                int value = realUser.viewMenu();
-                switch (value) {
-                    case 1:
-                        //View All Orders - All status with user roleID ==1
-                        Vector<OrderManagement> orderList = new Vector<OrderManagement>();
-                        OrderManagement order = new OrderManagement();
-                        // book.getBooksfromFile();
-                        orderList = order.getOrderFromFile();
-                        for(OrderManagement o: orderList){
-                            System.out.println(o.getOrderID()+" "+o.getTotalAmount()+" "+o.getOrderDate()+" "+o.getOrderStatus()+" "+
-                            o.getUser().userID+" "+o.getUser().userRole);
-                        }
-                        break;
-                    case 2:
-                        //Approval Order - Show Pending, allow them to enter orderID, then approve or reject
-                        break;
-                    case 3:
-                        BookSupplier.manageAccount(realUser);
-                        break;
-                
-                    default:
-                        break;
-                }
+                do {
+                    scan.nextLine();
+                    userOptionSupplier = realUser.viewMenu();
+                    switch (userOptionSupplier) {
+                        case 1:
+                            //View All Orders - All status with user roleID ==1
+                            Vector<OrderManagement> orderList = new Vector<OrderManagement>();
+                            OrderManagement order = new OrderManagement();
+                            orderList = order.getOrderFromFile(realUser.getUserRole());
+                            // System.out.println(orderList);
+                            order.viewAllOrders(orderList,realUser.getUserRole());
+                            // for(OrderManagement o: orderList){
+                            //     System.out.println(o.getOrderID()+" "+o.getTotalAmount()+" "+o.getOrderDate()+" "+o.getOrderStatus()+" "+
+                            //     o.getUser().userID+" "+o.getUser().userRole);
+                            // }
+                            // System.out.print("Press Enter to continue...");
+                            scan.nextLine();
+                            break;
+                        case 2:
+                            //Approval Order - Show Pending, allow them to enter orderID, then approve or reject
+                            break;
+                        case 3:
+                            BookSupplier.manageAccount(realUser);
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                }while(userOptionSupplier != 4);
             }
             }
         }else{
