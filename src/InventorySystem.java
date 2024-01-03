@@ -61,17 +61,20 @@ public class InventorySystem {
                             int orderQuantity = scan.nextInt();
                             scan.nextLine();
 
+                            OrderManagement order1 = new OrderManagement();
+
                             for(int i = 0; i < orderQuantity; i++){
                                 System.out.print("Enter the book ID to order : ");
                                 String bookID = scan.nextLine();
                                 System.out.print("Enter book Quantity : ");
                                 int Bookquantity = scan.nextInt();
-                                OrderManagement order = new OrderManagement();
-                                order.orderBook(bookID, Bookquantity, realUser, n);
+                                // OrderManagement order = new OrderManagement();
+                                order1.orderBook(bookID, Bookquantity, realUser, n);
                                 //OrderManagement.orderBook(()bookID, quantity , roleId);
                                 n++;
                                 scan.nextLine();
                             }
+                            System.out.println(order1.getBookCart());
                             //OrderManagement.orderBook(()bookID, quantity , roleId);
                             break;
                         case 3:
@@ -223,16 +226,18 @@ public class InventorySystem {
                             System.out.print("How many book do u wanna Order:");
                             int orderQuantity = scan.nextInt();
                             scan.nextLine();
+                            OrderManagement order = new OrderManagement();
                             for(int i = 0; i < orderQuantity; i++){
                                 System.out.print("Enter the book ID to order : ");
                                 String bookID = scan.nextLine();
                                 System.out.print("Enter book Quantity : ");
                                 int Bookquantity = scan.nextInt();
-                                OrderManagement order = new OrderManagement();
+                                
                                 order.orderBook(bookID, Bookquantity, realUser, n);
                                 //OrderManagement.orderBook(()bookID, quantity , roleId);
                                 scan.nextLine();
                             }
+                            order.generateInvoice();
                             break;
                         case 3:
                             
